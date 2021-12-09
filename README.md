@@ -1,16 +1,16 @@
 # Zillow Regression Project
 
-    ## About the Project
+##  About the Project
 
-    ### Project Goals
+### Project Goals
 
-        My goal is to produce a better model so that Zillow can more accuracatley predict the property assessed values of single family homes that had a transaction in 2017. 
+    My goal is to produce a better model so that Zillow can more accuracatley predict the property assessed values of single family homes that had a transaction in 2017. 
 
-    ### Project Description 
+### Project Description 
 
-        New/better model needed. Zillow already has a model to predict the property assessed values of single family homes, however, they aren't fully satisfied with the result and are looking for a more accurate model. I will be looking at drivers of home value such as squarefootage, and number of rooms and bathrooms to most accurately prdict the tax value. I will be focusing on single family homes in three Soutnern California counties that had a transaction in 2017. My recommendations will be the features that prodecuded the best model and my goal is to create a model that out preform's Zillow's current one. 
+    New/better model needed. Zillow already has a model to predict the property assessed values of single family homes, however, they aren't fully satisfied with the result and are looking for a more accurate model. I will be looking at drivers of home value such as squarefootage, and number of rooms and bathrooms to most accurately prdict the tax value. I will be focusing on single family homes in three Soutnern California counties that had a transaction in 2017. My recommendations will be the features that prodecuded the best model and my goal is to create a model that out preform's Zillow's current one. 
 
-    ### Initial Questions
+### Initial Questions
 
     - Why would a house cost more than another with the same physical features? 
     
@@ -22,7 +22,7 @@
    
     - Does squarefootage impact home value? 
 
-    ### Data Dictionary
+### Data Dictionary
     A list of the variables in the dataframe and their meaning. 
 
     | Variable       | Description                         |
@@ -34,14 +34,14 @@
     | year_built     | The year the house was built        |
     | county_code    | The county the house is in          |
 
-    ### Steps to Reproduce 
+### Steps to Reproduce 
 
         1. You will need to import everything listed in imports used
         2. You will need a env file with your username, password, and host giving you access to Codeup's SQL server (make sure you also have a .gitignore in your github repo to protect your env file!)
         3. Clone this repo containing the Zelco_Regression_Report as well as my wrangle.py.
         4. That should be all you need to do run the Zillow_Regression_Report!
 
-    ### The Plan 
+### The Plan 
 
         - Wrangle
             - create aqucire.py
