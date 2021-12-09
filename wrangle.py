@@ -5,7 +5,7 @@
 
 # ### Import
 
-# In[41]:
+# In[3]:
 
 
 import pandas as pd
@@ -26,7 +26,7 @@ import sklearn.preprocessing
 
 # ### Acquire Data
 
-# In[42]:
+# In[4]:
 
 
 # Connect to SQL database
@@ -38,7 +38,7 @@ def get_db_url(db_name):
     return f'mysql+pymysql://{user}:{password}@{host}/{db_name}'
 
 
-# In[43]:
+# In[144]:
 
 
 # Get Zillow data
@@ -51,11 +51,12 @@ def get_zillow_data():
     # SQL query
     sql_query =  '''
             
-    SELECT bedroomcnt, bathroomcnt, calculatedfinishedsquarefeet, taxvaluedollarcnt, yearbuilt, taxamount, fips
-    FROM properties_2017
-    LEFT JOIN propertylandusetype USING(propertylandusetypeid)
-    WHERE propertylandusedesc IN ("Single Family Residential",                       
-                                  "Inferred Single Family Residential")'''
+   SELECT bedroomcnt, bathroomcnt, calculatedfinishedsquarefeet, 
+                taxvaluedollarcnt, yearbuilt, taxamount, fips 
+                FROM properties_2017
+                JOIN propertylandusetype USING(propertylandusetypeid)
+                JOIN predictions_2017 USING(parcelid)
+                WHERE propertylandusetype.propertylandusetypeid = 261 AND 279;'''
     
     # Read in DataFrame
     df = pd.read_sql(sql_query, get_db_url('zillow'))
@@ -68,16 +69,22 @@ def get_zillow_data():
     return df
 
 
-# In[44]:
+# In[145]:
 
 
 df = get_zillow_data()
 df.head()
 
 
+# In[147]:
+
+
+df.shape
+
+
 # ### Remove Outliers
 
-# In[45]:
+# In[148]:
 
 
 # Function to remove outliers
@@ -103,13 +110,13 @@ def remove_outliers(df, k, col_list):
     return df
 
 
-# In[46]:
+# In[149]:
 
 
 split_df = df[['num_beds', 'num_baths', 'square_footage', 'tax_value']]
 
 
-# In[47]:
+# In[150]:
 
 
 target = df.tax_value
@@ -117,7 +124,7 @@ target = df.tax_value
 
 # ### Visually Explore Individual Variables
 
-# In[48]:
+# In[151]:
 
 
 def get_hist(df):
@@ -153,7 +160,7 @@ def get_hist(df):
     plt.show()
 
 
-# In[49]:
+# In[152]:
 
 
 def get_box(df):
@@ -189,17 +196,18 @@ def get_box(df):
 
 # ### Prepare Data
 
-# In[64]:
+# In[153]:
 
 
 def prepare_zillow(df):
     ''' Prepare zillow data for exploration'''
-
+    
     # removing outliers
     df = remove_outliers(df, 1.5, ['num_beds', 'num_baths', 'square_footage', 'tax_value', 'year_built', 'tax_amount'])
     
     # Drop duplicates
     df = df.drop_duplicates()
+    
     
     # Drop Columns
     # Drop this column to prevent leakage in model 
@@ -214,8 +222,8 @@ def prepare_zillow(df):
     
     # get distributions of numeric data
     # univariate explorstion before splitting
-    get_hist(df)
-    get_box(df)
+    # get_hist(df)
+    # get_box(df)
 
     
     # train/validate/test split
@@ -231,7 +239,7 @@ def prepare_zillow(df):
 
 # ### Acquire, Prep, and Split
 
-# In[51]:
+# In[154]:
 
 
 def wrangle_zillow():
@@ -245,31 +253,31 @@ def wrangle_zillow():
     return train, validate, test
 
 
-# In[52]:
+# In[155]:
 
 
 train, validate, test = wrangle_zillow()
 
 
-# In[55]:
+# In[156]:
 
 
 train.head()
 
 
-# In[56]:
+# In[157]:
 
 
 train.shape
 
 
-# In[57]:
+# In[158]:
 
 
 validate.shape
 
 
-# In[58]:
+# In[159]:
 
 
 test.shape
@@ -277,7 +285,7 @@ test.shape
 
 # ### Split into X and y variables
 
-# In[59]:
+# In[160]:
 
 
 def split_tvt_into_variables(train, validate, test, target):
@@ -297,20 +305,20 @@ def split_tvt_into_variables(train, validate, test, target):
     return train, validate, test, X_train, y_train, X_validate, y_validate, X_test, y_test
 
 
-# In[60]:
+# In[161]:
 
 
 # Run split_tvt_into_variables / the target is tax_value
 train, validate, test, X_train, y_train, X_validate, y_validate, X_test, y_test = split_tvt_into_variables(train, validate, test, target='tax_value')
 
 
-# In[61]:
+# In[162]:
 
 
 X_train.shape
 
 
-# In[62]:
+# In[163]:
 
 
 X_train.head()
@@ -318,7 +326,7 @@ X_train.head()
 
 # ### Scaling Data
 
-# In[23]:
+# In[164]:
 
 
 def Min_Max_Scaler(X_train, X_validate, X_test):
@@ -337,19 +345,19 @@ def Min_Max_Scaler(X_train, X_validate, X_test):
     return scaler, X_train_scaled, X_validate_scaled, X_test_scaled
 
 
-# In[24]:
+# In[165]:
 
 
 scaler, X_train_scaled, X_validate_scaled, X_test_scaled = Min_Max_Scaler(X_train, X_validate, X_test)
 
 
-# In[25]:
+# In[166]:
 
 
 X_train_scaled.shape
 
 
-# In[26]:
+# In[167]:
 
 
 def Standard_Scaler(X_train, X_validate, X_test):
@@ -366,13 +374,13 @@ def Standard_Scaler(X_train, X_validate, X_test):
     return scaler, X_train_scaled, X_validate_scaled, X_test_scaled
 
 
-# In[27]:
+# In[168]:
 
 
 scaler, X_train_scaled, X_validate_scaled, X_test_scaled = Standard_Scaler(X_train, X_validate, X_test)
 
 
-# In[28]:
+# In[169]:
 
 
 X_train_scaled.shape
@@ -380,7 +388,7 @@ X_train_scaled.shape
 
 # ### Visualize Data
 
-# In[29]:
+# In[170]:
 
 
 #--------VISUALIZE THE SCALED DATA
@@ -405,7 +413,7 @@ def visualize_scaled_date(scaler, scaler_name, feature):
     plt.tight_layout();
 
 
-# In[30]:
+# In[171]:
 
 
 # visualize_scaled_date(sklearn.preprocessing.MinMaxScaler(), 'Min Max Scaler', 'num_beds')
