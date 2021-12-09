@@ -196,7 +196,7 @@ def get_box(df):
 
 # ### Prepare Data
 
-# In[153]:
+# In[172]:
 
 
 def prepare_zillow(df):
@@ -222,8 +222,8 @@ def prepare_zillow(df):
     
     # get distributions of numeric data
     # univariate explorstion before splitting
-    # get_hist(df)
-    # get_box(df)
+    get_hist(df)
+    get_box(df)
 
     
     # train/validate/test split
@@ -239,7 +239,7 @@ def prepare_zillow(df):
 
 # ### Acquire, Prep, and Split
 
-# In[154]:
+# In[173]:
 
 
 def wrangle_zillow():
@@ -253,13 +253,13 @@ def wrangle_zillow():
     return train, validate, test
 
 
-# In[155]:
+# In[174]:
 
 
 train, validate, test = wrangle_zillow()
 
 
-# In[156]:
+# In[175]:
 
 
 train.head()
