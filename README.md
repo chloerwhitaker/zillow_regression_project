@@ -37,7 +37,7 @@
 
         1. You will need to import everything listed in imports used
         2. You will need a env file with your username, password, and host giving you access to Codeup's SQL server (make sure you also have a .gitignore in your github repo to protect your env file!)
-        3. Clone this repo containing the Zelco_Regression_Report as well as my wrangle.py.
+        3. Clone this repo containing the Zelco_Regression_Report as well as my wrangle.py, explore.py, and model.py.
         4. That should be all you need to do run the Zillow_Regression_Report!
 
 ### The Plan 
