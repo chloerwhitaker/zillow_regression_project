@@ -5,7 +5,7 @@
 
 # ### Import
 
-# In[3]:
+# In[1]:
 
 
 import pandas as pd
@@ -26,7 +26,7 @@ import sklearn.preprocessing
 
 # ### Acquire Data
 
-# In[4]:
+# In[2]:
 
 
 # Connect to SQL database
@@ -38,7 +38,7 @@ def get_db_url(db_name):
     return f'mysql+pymysql://{user}:{password}@{host}/{db_name}'
 
 
-# In[144]:
+# In[3]:
 
 
 # Get Zillow data
@@ -69,14 +69,14 @@ def get_zillow_data():
     return df
 
 
-# In[145]:
+# In[4]:
 
 
 df = get_zillow_data()
 df.head()
 
 
-# In[147]:
+# In[5]:
 
 
 df.shape
@@ -84,7 +84,7 @@ df.shape
 
 # ### Remove Outliers
 
-# In[148]:
+# In[6]:
 
 
 # Function to remove outliers
@@ -110,13 +110,13 @@ def remove_outliers(df, k, col_list):
     return df
 
 
-# In[149]:
+# In[7]:
 
 
 split_df = df[['num_beds', 'num_baths', 'square_footage', 'tax_value']]
 
 
-# In[150]:
+# In[8]:
 
 
 target = df.tax_value
@@ -124,7 +124,7 @@ target = df.tax_value
 
 # ### Visually Explore Individual Variables
 
-# In[151]:
+# In[9]:
 
 
 def get_hist(df):
@@ -160,7 +160,7 @@ def get_hist(df):
     plt.show()
 
 
-# In[152]:
+# In[10]:
 
 
 def get_box(df):
@@ -196,7 +196,7 @@ def get_box(df):
 
 # ### Prepare Data
 
-# In[172]:
+# In[25]:
 
 
 def prepare_zillow(df):
@@ -220,10 +220,14 @@ def prepare_zillow(df):
     df.year_built = df.year_built.astype(object)
     df.county_code = df.county_code.astype(object)
     
+    # Replace county codes with county name
+    # df['county_code'] = df.county_code.replace({'6037.0':'Los Angeles', '6059.0':'Orange', '6111.0':'Ventura'})
+    
+    
     # get distributions of numeric data
     # univariate explorstion before splitting
-    get_hist(df)
-    get_box(df)
+    # get_hist(df)
+    # get_box(df)
 
     
     # train/validate/test split
@@ -239,7 +243,7 @@ def prepare_zillow(df):
 
 # ### Acquire, Prep, and Split
 
-# In[173]:
+# In[22]:
 
 
 def wrangle_zillow():
@@ -253,25 +257,25 @@ def wrangle_zillow():
     return train, validate, test
 
 
-# In[174]:
+# In[23]:
 
 
 train, validate, test = wrangle_zillow()
 
 
-# In[175]:
+# In[24]:
 
 
 train.head()
 
 
-# In[157]:
+# In[19]:
 
 
 train.shape
 
 
-# In[158]:
+# In[20]:
 
 
 validate.shape
