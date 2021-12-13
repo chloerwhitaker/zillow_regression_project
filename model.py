@@ -344,17 +344,17 @@ def Lasso_Lars_Test(X_train_scaled, X_validate_scaled, y_train, y_validate, X_te
     y_train = pd.DataFrame(y_train)
     y_validate = pd.DataFrame(y_validate)
     
-    # 1. Predict G3_pred_mean
+    # 1. Predict value_pred_mean
     value_pred_mean = y_train.tax_value.mean()
     y_train['value_pred_mean'] = value_pred_mean
     y_validate['value_pred_mean'] = value_pred_mean
     
-    # 2. compute G3_pred_median
+    # 2. compute value_pred_median
     value_pred_median = y_train.tax_value.median()
     y_train['value_pred_median'] = value_pred_median
     y_validate['_pred_median'] = value_pred_median
     
-    # 3. RMSE of G3_pred_mean
+    # 3. RMSE of value_pred_mean
     rmse_train = mean_squared_error(y_train.tax_value,
                                 y_train.value_pred_mean) ** .5
     rmse_validate = mean_squared_error(y_validate.tax_value, y_validate.value_pred_mean) ** (0.5)
@@ -407,7 +407,7 @@ def Lasso_Lars_Test(X_train_scaled, X_validate_scaled, y_train, y_validate, X_te
 # Lasso_Lars_Test(X_train_scaled, X_validate_scaled, y_train, y_validate, X_test_scaled, y_test)
 
 
-# In[6]:
+# In[37]:
 
 
 # We need y_train and y_validate to be dataframes to append the new columns with predicted values. 
@@ -415,28 +415,28 @@ y_train = pd.DataFrame(y_train)
 y_validate = pd.DataFrame(y_validate)
 
 
-# In[7]:
+# In[38]:
 
 
-# 1. Predict G3_pred_mean
+# 1. Predict vlue_pred_mean
 value_pred_mean = y_train.tax_value.mean()
 y_train['value_pred_mean'] = value_pred_mean
 y_validate['value_pred_mean'] = value_pred_mean
 
 
-# In[8]:
+# In[39]:
 
 
-# 2. compute G3_pred_median
+# 2. compute value_pred_median
 value_pred_median = y_train.tax_value.median()
 y_train['value_pred_median'] = value_pred_median
 y_validate['_pred_median'] = value_pred_median
 
 
-# In[9]:
+# In[40]:
 
 
-# 3. RMSE of G3_pred_mean
+# 3. RMSE of value_pred_mean
 rmse_train = mean_squared_error(y_train.tax_value,
                                 y_train.value_pred_mean) ** .5
 rmse_validate = mean_squared_error(y_validate.tax_value, y_validate.value_pred_mean) ** (0.5)
