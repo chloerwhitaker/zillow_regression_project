@@ -12,15 +12,14 @@
 
 ### Initial Questions
 
-    - Why would a house cost more than another with the same physical features? 
-    
-    - Do home values vary drastically by county? 
+    1. Does squarefootage impact home value? 
 
-    - Does certain attributes have more value than other i.e. does more rooms directly impact value? 
-        - does more bathrroms directly impact value? 
-        - do rooms add more value than bathrooms? 
-   
-    - Does squarefootage impact home value? 
+    2. Does the number of bedrooms add more value?
+
+    3. Does the number of bathrooms add more value?
+
+    4. Why would a house cost more than another with the same physical features? 
+        - Do home values vary drastically by county?
 
 ### Data Dictionary
     A list of the variables in the dataframe and their meaning. 
@@ -75,3 +74,10 @@
             - report notebook
             - presentaion of report notebook
 
+## Conclusion:
+I have created a model that predicts home values better than the baseline does by $21,590.45.
+
+The features I used to create this model were: square footage, the number of bathrooms, and the number of bedrooms.
+
+## With more time...
+With more time I would use county as a feature to build new models with hopfully greater accuracy.
